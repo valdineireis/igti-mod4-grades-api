@@ -20,6 +20,14 @@ export default (mongoose) => {
         lastModified: Date,
     });
 
+    schema.method('toJSON', function () {
+        const { __v, _id, ...object } = this.toObject();
+
+        object.id = _id;
+
+        return object;
+    });
+
     const Grade = mongoose.model('grade', schema, 'grades');
 
     return Grade;
